@@ -1,75 +1,64 @@
-# Nuxt Minimal Starter
+# Tic Tac Toe Frontend (Nuxt)
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A modern, minimal, and clean browser-based Tic Tac Toe game built with Nuxt 3 and Vue 3.
+
+- Theme: Ocean Professional (Primary: #2563EB, Accent: #F59E0B)
+- Features: Local 2-player, current turn indicator, win/draw detection, scoreboard, reset board, restart game
+- UX: Subtle gradients, rounded corners, smooth transitions, minimal surfaces and shadows
 
 ## Setup
 
-Make sure to install dependencies:
+Install dependencies:
 
 ```bash
 # npm
 npm install
-
-# pnpm
-pnpm install
-
 # yarn
 yarn install
-
+# pnpm
+pnpm install
 # bun
 bun install
 ```
 
-## Development Server
+## Development
 
-Start the development server on `http://localhost:3000`:
+Start the dev server at `http://localhost:3000`:
 
 ```bash
 # npm
 npm run dev
-
-# pnpm
-pnpm dev
-
 # yarn
 yarn dev
-
+# pnpm
+pnpm dev
 # bun
 bun run dev
 ```
 
 ## Production
 
-Build the application for production:
+Build the application:
 
 ```bash
-# npm
 npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
-Locally preview production build:
+Preview the production build:
 
 ```bash
-# npm
 npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## How to Play
+
+- X starts first. Players alternate clicking empty cells.
+- Win by getting 3 in a row (horizontal, vertical, or diagonal).
+- Use Reset Board to clear the grid and alternate the starting player next round.
+- Use Restart Game to clear the grid and scores (X starts again).
+
+## Tech Notes
+
+- Single page experience via `app.vue`.
+- Score persists for the session using `sessionStorage`.
+- No external CSS frameworks required; uses utility-like classes and lightweight CSS.
