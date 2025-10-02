@@ -76,13 +76,32 @@
             <span
               class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-gray-100"
             >
-              <span
-                v-if="!winner && !isDraw"
-                class="text-lg font-semibold"
-                :class="currentPlayer === 'X' ? 'text-[#2563EB]' : 'text-amber-600'"
+              <!-- Current player icon (Knight/Queen) -->
+              <svg
+                v-if="!winner && !isDraw && currentPlayer === 'X'"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                role="img"
+                aria-label="Current player: X (Knight)"
+                class="size-5"
+                fill="currentColor"
+                style="color: var(--ocean-primary)"
               >
-                {{ currentPlayer }}
-              </span>
+                <path d="M7 19c0-2.761 2.239-5 5-5h.5c.828 0 1.5-.672 1.5-1.5V11l1.3-.65a1 1 0 0 0 .55-.89V7.9c0-.34-.173-.655-.46-.84l-3.2-2.05a1 1 0 0 0-1.05 0L7.8 5.9A3 3 0 0 0 6.5 8.5V10c0 .552.448 1 1 1h.5c.552 0 1-.448 1-1V9.8c0-.442.358-.8.8-.8h.4c.442 0 .8.358.8.8V11.1c0 1.436-1.164 2.6-2.6 2.6H8.5A4.5 4.5 0 0 0 4 18.2V19c0 .552.448 1 1 1h13c.552 0 1-.448 1-1v-1h-5.5c-1.933 0-3.5 1.567-3.5 3.5H6.5A1.5 1.5 0 0 1 5 20v-1z"/>
+              </svg>
+              <svg
+                v-else-if="!winner && !isDraw && currentPlayer === 'O'"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                role="img"
+                aria-label="Current player: O (Queen)"
+                class="size-5"
+                fill="currentColor"
+                style="color: var(--ocean-amber)"
+              >
+                <path d="M6.5 18a.5.5 0 0 1-.4-.8l2.1-2.7A6.5 6.5 0 0 1 6 9.8a1.8 1.8 0 0 1 3-1.3 1.8 1.8 0 0 1 3-1.3 1.8 1.8 0 0 1 3 1.3 1.8 1.8 0 0 1 3 1.3 6.5 6.5 0 0 1-2.2 4.7l2.1 2.7a.5.5 0 0 1-.4.8H6.5zM8 20.5c0-.276.224-.5.5-.5h7c.276 0 .5.224.5.5v1c0 .276-.224.5-.5.5h-7a.5.5 0 0 1-.5-.5v-1zM12 4.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm-5 1a1 1 0 1 1-.001 1.999A1 1 0 0 1 7 5.5zm10 0a1 1 0 1 1-.001 1.999A1 1 0 0 1 17 5.5z"/>
+              </svg>
+              <!-- Winner/Draw icons fallback -->
               <svg
                 v-else-if="winner"
                 xmlns="http://www.w3.org/2000/svg"
@@ -102,12 +121,13 @@
                 <circle cx="12" cy="12" r="9"/>
               </svg>
             </span>
-            <div class="text-sm sm:text-base">
+            <div class="text-sm sm:text-base" aria-live="polite">
               <p v-if="!winner && !isDraw" class="text-gray-700">
                 Current Turn:
                 <span
                   class="font-semibold"
                   :class="currentPlayer === 'X' ? 'text-[#2563EB]' : 'text-amber-600'"
+                  :aria-label="currentPlayer === 'X' ? 'Player X, Knight' : 'Player O, Queen'"
                 >
                   Player {{ currentPlayer }}
                 </span>
@@ -152,13 +172,45 @@
               />
               <!-- cell content -->
               <span
-                class="flex h-full w-full items-center justify-center text-5xl sm:text-6xl font-semibold"
-                :class="{
-                  'text-[#2563EB]': cell === 'X',
-                  'text-amber-600': cell === 'O'
-                }"
+                class="flex h-full w-full items-center justify-center"
+                aria-hidden="true"
               >
-                {{ cell }}
+                <!-- X as Knight (Ocean primary) -->
+                <svg
+                  v-if="cell === 'X'"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  role="img"
+                  :aria-label="`Player X (Knight)`"
+                  class="w-14 h-14 sm:w-20 sm:h-20"
+                  fill="currentColor"
+                  style="color: var(--ocean-primary)"
+                >
+                  <!-- Minimal knight silhouette -->
+                  <path d="M7 19c0-2.761 2.239-5 5-5h.5c.828 0 1.5-.672 1.5-1.5V11l1.3-.65a1 1 0 0 0 .55-.89V7.9c0-.34-.173-.655-.46-.84l-3.2-2.05a1 1 0 0 0-1.05 0L7.8 5.9A3 3 0 0 0 6.5 8.5V10c0 .552.448 1 1 1h.5c.552 0 1-.448 1-1V9.8c0-.442.358-.8.8-.8h.4c.442 0 .8.358.8.8V11.1c0 1.436-1.164 2.6-2.6 2.6H8.5A4.5 4.5 0 0 0 4 18.2V19c0 .552.448 1 1 1h13c.552 0 1-.448 1-1v-1h-5.5c-1.933 0-3.5 1.567-3.5 3.5H6.5A1.5 1.5 0 0 1 5 20v-1z"/>
+                  <!-- Eye dot -->
+                  <circle cx="12.9" cy="8.4" r="0.6" fill="white" />
+                </svg>
+                <!-- O as Queen (Amber accent) -->
+                <svg
+                  v-else-if="cell === 'O'"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  role="img"
+                  :aria-label="`Player O (Queen)`"
+                  class="w-14 h-14 sm:w-20 sm:h-20"
+                  fill="currentColor"
+                  style="color: var(--ocean-amber)"
+                >
+                  <!-- Minimal queen silhouette -->
+                  <path d="M6.5 18a.5.5 0 0 1-.4-.8l2.1-2.7A6.5 6.5 0 0 1 6 9.8a1.8 1.8 0 0 1 3-1.3 1.8 1.8 0 0 1 3-1.3 1.8 1.8 0 0 1 3 1.3 1.8 1.8 0 0 1 3 1.3 6.5 6.5 0 0 1-2.2 4.7l2.1 2.7a.5.5 0 0 1-.4.8H6.5zM8 20.5c0-.276.224-.5.5-.5h7c.276 0 .5.224.5.5v1c0 .276-.224.5-.5.5h-7a.5.5 0 0 1-.5-.5v-1zM12 4.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm-5 1a1 1 0 1 1-.001 1.999A1 1 0 0 1 7 5.5zm10 0a1 1 0 1 1-.001 1.999A1 1 0 0 1 17 5.5z"/>
+                  <!-- crown dots -->
+                  <circle cx="7" cy="5.5" r="0.5" fill="white"/>
+                  <circle cx="12" cy="5.5" r="0.5" fill="white"/>
+                  <circle cx="17" cy="5.5" r="0.5" fill="white"/>
+                </svg>
+                <!-- Empty cell placeholder for consistent sizing -->
+                <span v-else class="w-14 h-14 sm:w-20 sm:h-20"></span>
               </span>
               <!-- winning highlight -->
               <span
